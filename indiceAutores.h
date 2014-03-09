@@ -7,8 +7,7 @@ typedef struct autor{
 }Autor;
 
 typedef struct arrayAutor{
-	int size;
-	struct autor ** array;
+	struct autor * array[26];
 }Autores;
 
 
@@ -16,4 +15,4 @@ typedef struct arrayAutor{
 
 int findIndex(char * autor);
 
-int insert(Autor **listaAutores ,char * autor);
+int insert(Autores *listaAutores ,char * autor);

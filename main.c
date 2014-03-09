@@ -40,9 +40,9 @@ int main() {
 	char buff[1024], *nomeAutor;
 	int linhas = 0, numAutores, i, numTotalAutores, ini;
 	int anoMax = 0, anoMin = 3000;
-	Autor *listaAutores[26];
+	Autores *listaAutores = malloc(sizeof(struct arrayAutor));
 	for(ini =0; ini<26;ini++){
-		listaAutores[ini]= NULL;
+		listaAutores->array[ini]= NULL;
 	}
 
 	char *anoChar;

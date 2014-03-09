@@ -10,7 +10,7 @@ int findIndex(char * autor) {
 	return fristChar - 65;
 }
 
-int insert(Autor **listaAutores, char * autor) {
+int insert(Autores *listaAutores, char * autor) {
 	Autor *novoAutor = malloc(sizeof(struct autor));
 	Autor *anterior = NULL;
 	int index = findIndex(autor);
@@ -19,10 +19,10 @@ int insert(Autor **listaAutores, char * autor) {
 	novoAutor->comprimento = 1;
 	novoAutor->next = NULL;
 
-	if (listaAutores[index] == NULL ) {
-		listaAutores[index] = novoAutor;
+	if (listaAutores->array[index] == NULL ) {
+		listaAutores->array[index] = novoAutor;
 	} else {
-		Autor *aux = listaAutores[index];
+		Autor *aux = listaAutores->array[index];
 		while (aux) {
 			if (strcasecmp(aux->nome, novoAutor->nome) == 0) {
 				aux = NULL;
@@ -36,7 +36,7 @@ int insert(Autor **listaAutores, char * autor) {
 			} else {
 				if (anterior == NULL ) {
 					novoAutor->next = aux;
-					listaAutores[index] = novoAutor;
+					listaAutores->array[index] = novoAutor;
 
 					aux = NULL;
 				} else {
