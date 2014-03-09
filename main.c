@@ -36,14 +36,11 @@ void deletespace(char * word) {
 int main() {
 	FILE * ficheiro;
 	Estatisticas *est = malloc(sizeof(struct estatisticas));
-
+	Autores *listaAutores = createAutores();
 	char buff[1024], *nomeAutor;
-	int linhas = 0, numAutores, i, numTotalAutores, ini;
+	int linhas = 0, numAutores, i, numTotalAutores;
 	int anoMax = 0, anoMin = 3000;
-	Autores *listaAutores = malloc(sizeof(struct arrayAutor));
-	for(ini =0; ini<26;ini++){
-		listaAutores->array[ini]= NULL;
-	}
+
 
 	char *anoChar;
 	int ano;

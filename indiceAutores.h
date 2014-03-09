@@ -10,7 +10,7 @@ typedef struct arrayAutor{
 	struct autor * array[26];
 }Autores;
 
-
+Autores * createAutores();
 
 
 int findIndex(char * autor);
