@@ -28,14 +28,25 @@ int insert(Autores *listaAutores, char * autor) {
 	novoAutor->comprimento = 1;
 	novoAutor->next = NULL;
 
-    Autor * aux = listaAutores->array[index];
+	Autor * aux = listaAutores->array[index];
 
+	while (aux != NULL && strcasecmp(aux->nome, novoAutor->nome) < 0) {
+		anterior = aux;
+		aux = aux->next;
+	}
 
-    while (aux != NULL && strcasecmp(aux->nome, novoAutor->nome) < 0) {
-    		 anterior = aux;
-    		 aux = aux->next;
-   	 }
+	if (anterior == NULL ) {
+		if (aux == NULL ) {
+			listaAutores->array[index] = novoAutor;
+		} else {
+			listaAutores->array[index] = novoAutor;
+			novoAutor->next = aux;
+		}
 
+	} else {
+		anterior->next = novoAutor;
+		novoAutor->next = aux;
+	}
 
 //	if (listaAutores->array[index] == NULL ) {
 //		listaAutores->array[index] = novoAutor;
@@ -94,5 +105,5 @@ int insert(Autores *listaAutores, char * autor) {
 //		 }*/
 //		 }
 
-		return 1;
-	}
+	return 1;
+}
