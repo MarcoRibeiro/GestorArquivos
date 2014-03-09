@@ -1,0 +1,1 @@
+int menu(Estatisticas *est);

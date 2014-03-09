@@ -1,0 +1,1 @@
+catalogosAutores.d: ../catalogosAutores.c
