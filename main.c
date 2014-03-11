@@ -21,7 +21,7 @@ int numAut(char * publicacao) {
 }
 void deletespace(char * word) {
 	int i, j;
-	;
+
 	for (i = 0; word[i] != '\0'; i++) {
 		if (word[0] == ' ') {
 			for (j = i; word[j] != '\0'; j++) {
@@ -85,6 +85,7 @@ int main() {
 				anoMax = ano;
 				setAnoMax(est, anoMax);
 			}
+
 
 			linhas++;
 
