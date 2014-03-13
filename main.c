@@ -45,12 +45,12 @@ int main() {
 	char *anoChar;
 	int ano;
 
-	char nomeFicheiro[20] = "publicx.txt";
+	char nomeFicheiro[20] = "public.txt";
 	/* printf("Por favor, insira o nome do ficheiro que pretende analisar!\n");
 	 scanf("%s",nomeFicheiro);
 	 ficheiro = fopen(nomeFicheiro,"r");
 	 */
-	ficheiro = fopen("publicx.txt", "r");
+	ficheiro = fopen("public.txt", "r");
 	if (ficheiro == NULL ) {
 		printf("O ficheiro nao existe!\n");
 		return 0;

@@ -5,7 +5,7 @@
 int menu(Estatisticas *est, Autores *listaAutores) {
 	int continuar = 1;
 	int opcao, verMais = 1, contadorNomes;
-	Autor * autor;
+	Autor * autor = NULL, *aux;
 	char letra[2];
 	while (continuar != 0) {
 
@@ -34,7 +34,7 @@ int menu(Estatisticas *est, Autores *listaAutores) {
 			printf("Nome do Ficheiro: %s\n", getNomeFicheiro(est));
 			printf("numero de linhas: %d\n", getNumLinhas(est));
 			printf("Numero de nomes lidos:%d\n", getNumNomes(est));
-			printf("[%d a %d]\n",getAnoMin(est), getAnoMax(est));
+			printf("[%d a %d]\n", getAnoMin(est), getAnoMax(est));
 			printf("-----------------------------------------------------\n");
 			break;
 		case 2:
@@ -43,24 +43,26 @@ int menu(Estatisticas *est, Autores *listaAutores) {
 		case 5:
 		case 6:
 			printf("Insira a letra!\n");
-						scanf("%s", letra);
-						autor = getListaAutores(listaAutores, letra);
-						contadorNomes = 0;
-						printf("Nomes começados pela letra %s:\n", letra);
-						while (autor && verMais == 1) {
-							contadorNomes++;
+			scanf("%s", letra);
+			aux = getListaAutores(listaAutores, letra);
+			autor = aux;
+			printf("Nomes começados pela letra %s:\n", letra);
+			contadorNomes =0;
+			verMais=1;
+			while (autor && verMais == 1) {
+				contadorNomes++;
 
-							printf("%s\n", autor->nome);
-							autor = autor->next;
-							if (contadorNomes == 25) {
-								printf("Ver mais?\n");
-								printf("0->Nao!\n");
-								printf("1->Sim!\n");
-								scanf("%d", &verMais);
-								contadorNomes=0;
-							}
-						}
-						break;
+				printf("%s\n", autor->nome);
+				autor = autor->next;
+				if (contadorNomes == 25) {
+					printf("Ver mais?\n");
+					printf("0->Nao!\n");
+					printf("1->Sim!\n");
+					scanf("%d", &verMais);
+					contadorNomes = 0;
+				}
+			}
+			break;
 		case 7:
 		case 8:
 		case 9:
