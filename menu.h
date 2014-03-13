@@ -1,1 +1,1 @@
-int menu(Estatisticas *est);
+int menu(Estatisticas *est, Autores *listaAutores);

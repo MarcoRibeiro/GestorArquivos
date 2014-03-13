@@ -30,24 +30,35 @@ int insert(Autores *listaAutores, char * autor) {
 
 	Autor * aux = listaAutores->array[index];
 
-	while (aux != NULL && strcasecmp(aux->nome, novoAutor->nome) < 0) {
+	while (aux != NULL && strcasecmp(aux->nome, novoAutor->nome) <= 0) {
 		anterior = aux;
 		aux = aux->next;
 	}
 
 	if (anterior == NULL ) {
+
 		if (aux == NULL ) {
 			listaAutores->array[index] = novoAutor;
 		} else {
-			listaAutores->array[index] = novoAutor;
-			novoAutor->next = aux;
+			if (strcasecmp(aux->nome, novoAutor->nome) != 0) {
+				listaAutores->array[index] = novoAutor;
+				novoAutor->next = aux;
+			}
 		}
 
 	} else {
+		if (strcasecmp(anterior->nome, novoAutor->nome) != 0){
 		anterior->next = novoAutor;
 		novoAutor->next = aux;
+
+	}
 	}
 
-
 	return 1;
+}
+
+Autor * getListaAutores(Autores *listaAutores, char * a){
+	int index = findIndex(a);
+	return listaAutores->array[index];
+
 }

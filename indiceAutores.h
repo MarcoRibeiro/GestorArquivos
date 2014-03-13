@@ -12,7 +12,7 @@ typedef struct arrayAutor{
 
 Autores * createAutores();
 
-
+Autor * getListaAutores(Autores *listaAutores, char * a);
 int findIndex(char * autor);
 
 int insert(Autores *listaAutores ,char * autor);

@@ -59,6 +59,7 @@ int main() {
 		while (fgets(buff, 1024, ficheiro)) {
 
 			char * publicacao = buff;
+
 			publicacao = strdup(publicacao);
 
 			numAutores = numAut(buff);
@@ -67,7 +68,9 @@ int main() {
 			while (i < numAutores) {
 				nomeAutor = strsep(&publicacao, ",");
 				deletespace(nomeAutor);
+
 				insert(listaAutores ,nomeAutor);
+
 				i++;
 				numTotalAutores++;
 			}
@@ -88,7 +91,7 @@ int main() {
 
 
 			linhas++;
-
+			printf("%d\n",linhas);
 		}
 
 		setNumLinhas(est, linhas);
@@ -96,7 +99,7 @@ int main() {
 		setNomeFicheiro(est, nomeFicheiro);
 
 	}
-	menu(est);
+	menu(est,listaAutores);
 
 	return 1;
 }
