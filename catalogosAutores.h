@@ -19,23 +19,25 @@ typedef struct publicacoesPorAno{
 }PublicacoesPorAno;
 
 
-PublicacoesPorAno criarTabela(int size);
+PublicacoesPorAno* criarTabela(int size);
 
-Escritor criarEscritor(char*nome);
+Escritor* criarNovoEscritor(char*nome);
 
-CoAutor criarCoAutor();
+CoAutor* criarCoAutor();
 
-void inserirEscritor(PublicacoesPorAno p,Escritor e);
+void inserirEscritor(PublicacoesPorAno p,char ** escritores,int ano);
 
 void inserirCoAutor(PublicacoesPorAno p, Escritor e, CoAutor c);
 
 int hashIndex(int ano);
 
-Escritor getEscritoPorAno(PublicacoesPorAno p,char * nome, int ano);
+Escritor* getEscritoPorAno(PublicacoesPorAno p,char * nome, int ano);//
+
+int getArtigosEscrito(PublicacoesPorAno p,char * nome, int ano);//3
 
 CoAutor* getListaCoAutores(PublicacoesPorAno p,char * nome,int ano);
 
-
+int numArtigosPorAno(PublicacoesPorAno p,int ano);//2
 
 
 

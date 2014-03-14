@@ -1,5 +1,6 @@
 #include "indiceAutores.h"
 #include "estatisticas.h"
+#include "catalogosAutores.h"
 #include "menu.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,6 +38,7 @@ int main() {
 	FILE * ficheiro;
 	Estatisticas *est = malloc(sizeof(struct estatisticas));
 	Autores *listaAutores = createAutores();
+	PublicacoesPorAno * publicacoesPorAno = criarTabela(100);
 	char buff[1024], *nomeAutor;
 	int linhas = 0, numAutores, i, numTotalAutores;
 	int anoMax = 0, anoMin = 3000;
@@ -50,7 +52,7 @@ int main() {
 	 scanf("%s",nomeFicheiro);
 	 ficheiro = fopen(nomeFicheiro,"r");
 	 */
-	ficheiro = fopen("public.txt", "r");
+	ficheiro = fopen("publicx.txt", "r");
 	if (ficheiro == NULL ) {
 		printf("O ficheiro nao existe!\n");
 		return 0;
@@ -63,14 +65,14 @@ int main() {
 			publicacao = strdup(publicacao);
 
 			numAutores = numAut(buff);
-
+			char * escritores[numAutores];
 			i = 0;
 			while (i < numAutores) {
 				nomeAutor = strsep(&publicacao, ",");
 				deletespace(nomeAutor);
 
 				insert(listaAutores ,nomeAutor);
-
+				escritores[i]=nomeAutor;
 				i++;
 				numTotalAutores++;
 			}
