@@ -1,9 +1,12 @@
 #include "estatisticas.h"
 #include "indiceAutores.h"
+#include "catalogosAutores.h"
 #include <stdio.h>
 
-int menu(Estatisticas *est, Autores *listaAutores) {
+int menu(PublicacoesPorAno *p, Estatisticas *est, Autores *listaAutores) {
 	int continuar = 1;
+	int ano,anoMin, anoMax,artigos;
+	char *nome;
 	int opcao, verMais = 1, contadorNomes;
 	Autor * autor = NULL, *aux;
 	char letra[2];
@@ -11,7 +14,7 @@ int menu(Estatisticas *est, Autores *listaAutores) {
 
 		printf("-----------------------------------------------------\n");
 		printf("1->Dados do Ficheiro!\n");
-		printf("2->\n");
+		printf("2->Artigos por ano!\n");
 		printf("3->\n");
 		printf("4->\n");
 		printf("5->\n");
@@ -38,7 +41,27 @@ int menu(Estatisticas *est, Autores *listaAutores) {
 			printf("-----------------------------------------------------\n");
 			break;
 		case 2:
+			printf("-----------------------------------------------------\n");
+			anoMin = getAnoMin(est);
+			anoMax = getAnoMax(est);
+			while (anoMin <= anoMax) {
+				if (numArtigosPorAno(p, anoMin) != 0) {
+					printf("no ano %d foram publicados %d artigos!\n", anoMin,numArtigosPorAno(p, anoMin));
+				}
+				anoMin++;
+			}
+			printf("-----------------------------------------------------\n");
+			break;
 		case 3:
+			printf("Insira o ano!\n");
+			scanf("%d", &ano);
+//			printf("Insira o nome do escritor:\n");
+//			scanf("%s",nome);
+			nome="Yan Lei";
+			artigos=getArtigosEscrito(p,nome,ano);
+			printf("No ano %d o escritor %s publicou %d artigos!\n",ano,nome,artigos);
+
+			break;
 		case 4:
 		case 5:
 		case 6:
@@ -47,8 +70,8 @@ int menu(Estatisticas *est, Autores *listaAutores) {
 			aux = getListaAutores(listaAutores, letra);
 			autor = aux;
 			printf("Nomes começados pela letra %s:\n", letra);
-			contadorNomes =0;
-			verMais=1;
+			contadorNomes = 0;
+			verMais = 1;
 			while (autor && verMais == 1) {
 				contadorNomes++;
 

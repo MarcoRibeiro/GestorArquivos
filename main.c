@@ -47,7 +47,7 @@ int main() {
 	char *anoChar;
 	int ano;
 
-	char nomeFicheiro[20] = "public.txt";
+	char nomeFicheiro[20] = "publicx.txt";
 	/* printf("Por favor, insira o nome do ficheiro que pretende analisar!\n");
 	 scanf("%s",nomeFicheiro);
 	 ficheiro = fopen(nomeFicheiro,"r");
@@ -79,7 +79,7 @@ int main() {
 			anoChar = strsep(&publicacao, "\n");
 			deletespace(anoChar);
 			ano = atoi(anoChar);
-
+			inserirEscritor(publicacoesPorAno, escritores,numAutores,ano);
 			if (ano < anoMin) {
 				anoMin = ano;
 				setAnoMin(est, anoMin);
@@ -101,7 +101,7 @@ int main() {
 		setNomeFicheiro(est, nomeFicheiro);
 
 	}
-	menu(est,listaAutores);
+	menu(publicacoesPorAno,est,listaAutores);
 
 	return 1;
 }

@@ -15,6 +15,7 @@ typedef struct escritor{
 
 typedef struct publicacoesPorAno{
 	int size;
+	int * numArtigos;
 	struct escritor **tabela;
 }PublicacoesPorAno;
 
@@ -25,19 +26,19 @@ Escritor* criarNovoEscritor(char*nome);
 
 CoAutor* criarCoAutor();
 
-void inserirEscritor(PublicacoesPorAno p,char ** escritores,int ano);
+void inserirEscritor(PublicacoesPorAno *p,char ** escritores,int tamanho,int ano);
 
-void inserirCoAutor(PublicacoesPorAno p, Escritor e, CoAutor c);
+void inserirCoAutor(PublicacoesPorAno *p, Escritor e, CoAutor c);
 
 int hashIndex(int ano);
 
-Escritor* getEscritoPorAno(PublicacoesPorAno p,char * nome, int ano);//
+Escritor* getEscritoPorAno(PublicacoesPorAno *p,char * nome, int ano);//
 
-int getArtigosEscrito(PublicacoesPorAno p,char * nome, int ano);//3
+int getArtigosEscrito(PublicacoesPorAno *p,char * nome, int ano);//3
 
-CoAutor* getListaCoAutores(PublicacoesPorAno p,char * nome,int ano);
+CoAutor* getListaCoAutores(PublicacoesPorAno *p,char * nome,int ano);
 
-int numArtigosPorAno(PublicacoesPorAno p,int ano);//2
+int numArtigosPorAno(PublicacoesPorAno *p,int ano);//2
 
 
 
