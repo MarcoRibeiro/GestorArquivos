@@ -8,7 +8,7 @@ int menu(PublicacoesPorAno *p, Estatisticas *est, Autores *listaAutores) {
 	int ano,anoMin, anoMax,artigos;
 	char *nome;
 	int opcao, verMais = 1, contadorNomes;
-	Autor * autor = NULL, *aux;
+	NodoAutor * autor = NULL, *aux;
 	char letra[2];
 	while (continuar != 0) {
 
@@ -76,7 +76,7 @@ int menu(PublicacoesPorAno *p, Estatisticas *est, Autores *listaAutores) {
 				contadorNomes++;
 
 				printf("%s\n", autor->nome);
-				autor = autor->next;
+				//autor = autor->next;
 				if (contadorNomes == 25) {
 					printf("Ver mais?\n");
 					printf("0->Nao!\n");

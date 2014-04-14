@@ -39,10 +39,11 @@ int main() {
 	Estatisticas *est = malloc(sizeof(struct estatisticas));
 	Autores *listaAutores = createAutores();
 	PublicacoesPorAno * publicacoesPorAno = criarTabela(100);
+	NodoAutor * raiz = NULL;
+	int status = 0;
 	char buff[1024], *nomeAutor;
 	int linhas = 0, numAutores, i, numTotalAutores;
 	int anoMax = 0, anoMin = 3000;
-
 
 	char *anoChar;
 	int ano;
@@ -70,30 +71,34 @@ int main() {
 			while (i < numAutores) {
 				nomeAutor = strsep(&publicacao, ",");
 				deletespace(nomeAutor);
-
-				insert(listaAutores ,nomeAutor);
-				escritores[i]=nomeAutor;
+				insert(listaAutores, listaAutores->array[findIndex(nomeAutor)],nomeAutor, &status);
+				escritores[i] = nomeAutor;
 				i++;
 				numTotalAutores++;
 			}
+
 			anoChar = strsep(&publicacao, "\n");
+
 			deletespace(anoChar);
+
+
 			ano = atoi(anoChar);
-			inserirEscritor(publicacoesPorAno, escritores,numAutores,ano);
-			if (ano < anoMin) {
-				anoMin = ano;
-				setAnoMin(est, anoMin);
-				if (ano == 0)
-					return 0;
-			}
-			if (ano > anoMax) {
-				anoMax = ano;
-				setAnoMax(est, anoMax);
-			}
+			if (ano) {
+				inserirEscritor(publicacoesPorAno, escritores, numAutores, ano);
+				if (ano < anoMin) {
+					anoMin = ano;
+					setAnoMin(est, anoMin);
+					if (ano == 0)
+						return 0;
+				}
+				if (ano > anoMax) {
+					anoMax = ano;
+					setAnoMax(est, anoMax);
+				}
 
-
-			linhas++;
-			printf("%d\n",linhas);
+				linhas++;
+				printf("%d\n", linhas);
+			}
 		}
 
 		setNumLinhas(est, linhas);
@@ -101,7 +106,7 @@ int main() {
 		setNomeFicheiro(est, nomeFicheiro);
 
 	}
-	menu(publicacoesPorAno,est,listaAutores);
+	menu(publicacoesPorAno, est, listaAutores);
 
 	return 1;
 }

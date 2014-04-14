@@ -1,21 +1,25 @@
 
 
-typedef struct autor{
+typedef struct nodoAutor{
 	char * nome;
 	int comprimento;
-	struct autor * next;
-}Autor;
+	struct nodoAutor * dir;
+	struct nodoAutor * esq;
+	int fatBal;
+}NodoAutor;
 
 typedef struct arrayAutor{
-	struct autor * array[26];
+	struct nodoAutor * array[27];
 }Autores;
 
 Autores * createAutores();
 
-Autor * getListaAutores(Autores *listaAutores, char * a);
+NodoAutor* creatNodoAutor(NodoAutor * raiz, char * nome);
+
+NodoAutor * getListaAutores(Autores *listaAutores, char * a);
 
 
 int findIndex(char * autor);
 
 
-int insert(Autores *listaAutores ,char * autor);
+void insert(Autores *listaAutores, NodoAutor* raiz, char * autor, int status);
