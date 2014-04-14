@@ -14,10 +14,12 @@ typedef struct arrayAutor{
 
 Autores * createAutores();
 
+NodoAutor* inserirAutor(char * novo, NodoAutor * autor);
+
 NodoAutor* creatNodoAutor(NodoAutor * raiz, char * nome);
 
 NodoAutor * getListaAutores(Autores *listaAutores, char * a);
-
+void printArvore(NodoAutor *autor,int flag);
 
 int findIndex(char * autor);
 

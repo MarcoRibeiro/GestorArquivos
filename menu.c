@@ -72,7 +72,7 @@ int menu(PublicacoesPorAno *p, Estatisticas *est, Autores *listaAutores) {
 			printf("Nomes começados pela letra %s:\n", letra);
 			contadorNomes = 0;
 			verMais = 1;
-			while (autor && verMais == 1) {
+			/*while (autor && verMais == 1) {
 				contadorNomes++;
 
 				printf("%s\n", autor->nome);
@@ -84,7 +84,8 @@ int menu(PublicacoesPorAno *p, Estatisticas *est, Autores *listaAutores) {
 					scanf("%d", &verMais);
 					contadorNomes = 0;
 				}
-			}
+			}*/
+			printArvore(autor);
 			break;
 		case 7:
 		case 8:

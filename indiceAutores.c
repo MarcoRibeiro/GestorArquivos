@@ -31,104 +31,138 @@ NodoAutor* creatNodoAutor(NodoAutor * raiz, char * nome) {
 	raiz->nome = nome;
 	return raiz;
 }
-void rodarEsq(NodoAutor * no,int status){
 
-	NodoAutor * b,*c;
-	b=no->dir;
-	if(b->fatBal==-1){
-		no->dir = b->esq;
-		b->esq = no;
-		no->fatBal=0;
-		no=b;
-	}else{
-		c=b->esq;
-		b->esq = c->dir;
-		c->dir=b;
-		no->dir = c->esq;
-		c->esq=no;
-		if(c->fatBal==-1){
-			no->fatBal=1;
-		}else{
-			no->fatBal=0;
-		}
-		if(c->fatBal==1){
-			b->fatBal=-1;
-		}else{
-			b->fatBal=0;
-		}
-		no=c;
+
+void freeArvore(NodoAutor * autor) {
+	if (autor != NULL ) {
+		freeArvore(autor->esq);
+		freeArvore(autor->dir);
+		free(autor);
 	}
-	no->fatBal=0;
-	status= 0;
-
-
-}
-void rodarDir(NodoAutor * no,int status){
-	NodoAutor * b,*c;
-	b=no->esq;
-	if(b->fatBal==-1){
-		no->esq = b->dir;
-		b->dir = no;
-		no->fatBal=0;
-		no=b;
-	}else{
-		c=b->dir;
-		b->dir = c->esq;
-		c->esq=b;
-		no->esq = c->dir;
-		c->dir=no;
-		if(c->fatBal==-1){
-			no->fatBal=1;
-		}else{
-			no->fatBal=0;
-		}
-		if(c->fatBal==1){
-			b->fatBal=-1;
-		}else{
-			b->fatBal=0;
-		}
-		no=c;
-	}
-	no->fatBal=0;
-	status= 0;
-
 }
 
-
-
-void insert(Autores *listaAutores, NodoAutor *raiz, char * autor, int status) {
-	int index = findIndex(autor);
-	//raiz = listaAutores->array[index];
-
-	if (raiz == NULL ) {
-		raiz = creatNodoAutor(raiz, autor);
-		status = 1;
-	} else if (strcasecmp(raiz->nome, autor) == 0) {
-		printf("repetido!!\n");
-		return;
-	} else if (strcasecmp(raiz->nome, autor) > 0) {
-		insert(listaAutores, raiz->esq, autor,status);
-		if (status == 1) {
-			switch (raiz->fatBal) {
-			case 1: raiz->fatBal = 0; status =0; break;
-			case 0: raiz->fatBal = -1; break;
-			case -1 : rodarDir(raiz,status); break;
-			}
-		}
+int altura(NodoAutor * autor) {
+	if (!autor) {
+		return -1;
 	} else {
-		insert(listaAutores, raiz->dir, autor,status);
-		if (status == 1) {
-			switch (raiz->fatBal) {
-			case -1 : raiz->fatBal = 0; status = 0; break;
-			case 0 : raiz->fatBal = 1; break;
-			case 1 : rodarEsq(raiz,status);break;
+		return autor->fatBal;
+	}
+}
+
+int max(int n, int m) {
+	return n > m ? n : m;
+}
+
+NodoAutor * rodarEsqSimples(NodoAutor * autor) {
+
+	NodoAutor * novoAutor = NULL;
+
+	novoAutor = autor->esq;
+	autor->esq = novoAutor->dir;
+	novoAutor->dir = autor;
+
+	autor->fatBal = max(altura(autor->esq), altura(autor->dir)) + 1;
+	novoAutor->fatBal = max(altura(novoAutor->esq), autor->fatBal) + 1;
+	return novoAutor;
+}
+
+NodoAutor * rodarDirSimples(NodoAutor * autor) {
+
+	NodoAutor * novoAutor = NULL;
+
+	novoAutor = autor->dir;
+	autor->dir = novoAutor->esq;
+	novoAutor->esq = autor;
+
+	autor->fatBal = max(altura(autor->esq), altura(autor->dir)) + 1;
+	novoAutor->fatBal = max(altura(novoAutor->esq), autor->fatBal) + 1;
+	return novoAutor;
+}
+
+NodoAutor* rodarDirDuplo(NodoAutor * autor) {
+
+	autor->dir = rodarEsqSimples(autor->dir);
+
+	return rodarDirSimples(autor);
+}
+
+NodoAutor* rodarEsqDuplo(NodoAutor * autor) {
+
+	autor->esq = rodarDirSimples(autor->esq);
+
+	return rodarEsqSimples(autor);
+}
+
+int comparar(const char* s1, const char* s2) {
+	for (; *s1 == *s2; ++s1, ++s2) {
+		if (*s1 == '\0') {
+			return 0;
+		}
+	}
+	if (*s1 < *s2) {
+		return -1;
+	} else {
+		return +1;
+	}
+}
+
+NodoAutor* inserirAutor(char * novo, NodoAutor * autor) {
+
+	if (!autor) {
+		autor = (NodoAutor*) malloc(sizeof(struct nodoAutor));
+		if (!autor) {
+			fprintf(stderr, "Out of memory!!! (insert)\n");
+
+		} else {
+			char * nomeAutor = (char *) malloc(strlen(novo) + 1);
+			strcpy(nomeAutor, novo);
+			autor->nome = nomeAutor;
+			autor->fatBal = 0;
+			autor->esq = NULL;
+			autor->dir = NULL;
+		}
+	} else if (comparar(novo, autor->nome) == -1) {
+		autor->esq = inserirAutor(novo, autor->esq);
+		if (altura(autor->esq)-altura(autor->dir)==2) {
+			if (comparar(novo, autor->esq->nome) == -1) {
+				autor = rodarEsqSimples(autor);
+			} else {
+				autor = rodarEsqDuplo(autor);
+			}
+		}
+	} else if (comparar(novo, autor->nome) == 0) {
+		return autor;
+	} else if (comparar(novo, autor->nome) == 1) {
+		autor->dir = inserirAutor(novo, autor->dir);
+		if (altura(autor->dir)-altura(autor->esq)==2) {
+			if (comparar(novo, autor->dir->nome) == 1) {
+				autor = rodarDirSimples(autor);
+			} else {
+				autor = rodarDirDuplo(autor);
 			}
 		}
 	}
-	listaAutores->array[index] = raiz;
+
+    	autor->fatBal = max(altura(autor->esq), altura(autor->dir)) + 1;
+	return autor;
+
 }
 
+void printArvore(NodoAutor *autor){
+	if(!autor){
+		return;
+	}
+	printf("%s",autor->nome);
 
+	if(autor->esq != NULL)
+		printf("%s",autor->esq->nome);
+	if(autor->dir != NULL)
+			printf("%s",autor->dir->nome);
+	printf("\n");
+
+	printArvore(autor->esq);
+	printArvore(autor->dir);
+}
 
 
 

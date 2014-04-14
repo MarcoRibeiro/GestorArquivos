@@ -39,12 +39,12 @@ int main() {
 	Estatisticas *est = malloc(sizeof(struct estatisticas));
 	Autores *listaAutores = createAutores();
 	PublicacoesPorAno * publicacoesPorAno = criarTabela(100);
-	NodoAutor * raiz = NULL;
+	//NodoAutor * raiz = NULL;
 	int status = 0;
 	char buff[1024], *nomeAutor;
 	int linhas = 0, numAutores, i, numTotalAutores;
 	int anoMax = 0, anoMin = 3000;
-
+	int index=0;
 	char *anoChar;
 	int ano;
 
@@ -71,7 +71,9 @@ int main() {
 			while (i < numAutores) {
 				nomeAutor = strsep(&publicacao, ",");
 				deletespace(nomeAutor);
-				insert(listaAutores, listaAutores->array[findIndex(nomeAutor)],nomeAutor, &status);
+				index = findIndex(nomeAutor);
+				listaAutores->array[index] = inserirAutor(nomeAutor,listaAutores->array[index]);
+				//insert(listaAutores, listaAutores->array[findIndex(nomeAutor)],nomeAutor, &status);
 				escritores[i] = nomeAutor;
 				i++;
 				numTotalAutores++;
